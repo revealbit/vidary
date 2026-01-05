@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { X, Loader2, RefreshCw } from 'lucide-react';
 import { useVideoStore } from '../../stores/videoStore';
 import { extractYouTubeId, isValidYouTubeUrl, fetchYouTubeTitle } from '../../utils/youtube';
 import type { GroupItem, VideoItem, VideoStatus } from '../../types';
 
-const STATUS_OPTIONS: { value: VideoStatus; label: string }[] = [
-  { value: 'none', label: 'None' },
-  { value: 'to-watch', label: 'To Watch' },
-  { value: 'in-progress', label: 'In Progress' },
-  { value: 'watched', label: 'Watched' },
-  { value: 'important', label: 'Important' },
+const STATUS_KEYS: { value: VideoStatus; key: string }[] = [
+  { value: 'none', key: 'status.none' },
+  { value: 'to-watch', key: 'status.toWatch' },
+  { value: 'in-progress', key: 'status.inProgress' },
+  { value: 'watched', key: 'status.watched' },
+  { value: 'important', key: 'status.important' },
 ];
 
 interface EditVideoModalProps {
@@ -19,6 +20,7 @@ interface EditVideoModalProps {
 }
 
 export function EditVideoModal({ isOpen, onClose, video }: EditVideoModalProps) {
+  const { t } = useTranslation();
   const { updateItem, moveItem, items } = useVideoStore();
   const [url, setUrl] = useState('');
   const [title, setTitle] = useState('');
@@ -49,18 +51,18 @@ export function EditVideoModal({ isOpen, onClose, video }: EditVideoModalProps) 
     if (!video) return;
 
     if (!isValidYouTubeUrl(url)) {
-      setError('Invalid YouTube URL');
+      setError(t('addVideoModal.invalidUrl'));
       return;
     }
 
     const youtubeId = extractYouTubeId(url);
     if (!youtubeId) {
-      setError('Cannot extract video ID from URL');
+      setError(t('addVideoModal.cannotExtractId'));
       return;
     }
 
     if (!title.trim()) {
-      setError('Title is required');
+      setError(t('addVideoModal.titleRequired'));
       return;
     }
 
@@ -123,7 +125,7 @@ export function EditVideoModal({ isOpen, onClose, video }: EditVideoModalProps) 
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-gray-800 rounded-lg p-6 w-full max-w-md mx-4">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-white">Edit Video</h2>
+          <h2 className="text-xl font-semibold text-white">{t('editVideoModal.title')}</h2>
           <button
             onClick={onClose}
             className="p-1 hover:bg-gray-700 rounded"
@@ -135,20 +137,20 @@ export function EditVideoModal({ isOpen, onClose, video }: EditVideoModalProps) 
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-300 mb-1">
-              URL YouTube
+              {t('addVideoModal.urlLabel')}
             </label>
             <input
               type="text"
               value={url}
               onChange={(e) => handleUrlChange(e.target.value)}
-              placeholder="https://www.youtube.com/watch?v=..."
+              placeholder={t('addVideoModal.urlPlaceholder')}
               className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
             />
           </div>
 
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-300 mb-1">
-              Title
+              {t('addVideoModal.titleLabel')}
             </label>
             <div className="relative flex gap-2">
               <div className="relative flex-1">
@@ -156,7 +158,7 @@ export function EditVideoModal({ isOpen, onClose, video }: EditVideoModalProps) 
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  placeholder="Video name"
+                  placeholder={t('addVideoModal.titlePlaceholder')}
                   className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
                 />
                 {isLoadingTitle && (
@@ -170,7 +172,7 @@ export function EditVideoModal({ isOpen, onClose, video }: EditVideoModalProps) 
                 onClick={handleRefreshTitle}
                 disabled={!isValidYouTubeUrl(url) || isLoadingTitle}
                 className="px-3 py-2 bg-gray-700 hover:bg-gray-600 border border-gray-600 rounded text-gray-400 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Fetch original title from YouTube"
+                title={t('addVideoModal.fetchTitle')}
               >
                 <RefreshCw size={16} />
               </button>
@@ -179,14 +181,14 @@ export function EditVideoModal({ isOpen, onClose, video }: EditVideoModalProps) 
 
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-300 mb-1">
-              Group (optional)
+              {t('addVideoModal.groupLabel')}
             </label>
             <select
               value={parentId || ''}
               onChange={(e) => setParentId(e.target.value || null)}
               className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:border-blue-500"
             >
-              <option value="">No group (root)</option>
+              <option value="">{t('addVideoModal.noGroup')}</option>
               {groups.map((group) => (
                 <option key={group.id} value={group.id}>
                   {group.name}
@@ -197,16 +199,16 @@ export function EditVideoModal({ isOpen, onClose, video }: EditVideoModalProps) 
 
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-300 mb-1">
-              Status
+              {t('addVideoModal.statusLabel')}
             </label>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value as VideoStatus)}
               className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:border-blue-500"
             >
-              {STATUS_OPTIONS.map((option) => (
+              {STATUS_KEYS.map((option) => (
                 <option key={option.value} value={option.value}>
-                  {option.label}
+                  {t(option.key)}
                 </option>
               ))}
             </select>
@@ -214,12 +216,12 @@ export function EditVideoModal({ isOpen, onClose, video }: EditVideoModalProps) 
 
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-300 mb-1">
-              Description (optional)
+              {t('addVideoModal.descriptionLabel')}
             </label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Additional information about the video..."
+              placeholder={t('addVideoModal.descriptionPlaceholder')}
               rows={3}
               className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 resize-none"
             />
@@ -237,13 +239,13 @@ export function EditVideoModal({ isOpen, onClose, video }: EditVideoModalProps) 
               onClick={onClose}
               className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded text-white"
             >
-              Cancel
+              {t('addVideoModal.cancel')}
             </button>
             <button
               type="submit"
               className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded text-white"
             >
-              Save
+              {t('editVideoModal.save')}
             </button>
           </div>
         </form>

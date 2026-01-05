@@ -1,7 +1,9 @@
+import { useTranslation } from 'react-i18next';
 import { useVideoStore } from '../../stores/videoStore';
 import type { VideoItem } from '../../types';
 
 export function VideoPlayer() {
+  const { t } = useTranslation();
   const { items, selectedVideoId } = useVideoStore();
 
   const selectedVideo = items.find(
@@ -12,8 +14,8 @@ export function VideoPlayer() {
     return (
       <div className="flex-1 flex items-center justify-center bg-gray-900 text-gray-400">
         <div className="text-center">
-          <p className="text-xl mb-2">Select a video from the list</p>
-          <p className="text-sm">or add a new one using the "+ Video" button</p>
+          <p className="text-xl mb-2">{t('videoPlayer.selectVideo')}</p>
+          <p className="text-sm">{t('videoPlayer.addVideoHint')}</p>
         </div>
       </div>
     );

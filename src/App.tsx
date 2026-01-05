@@ -1,10 +1,13 @@
 import { useEffect, useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { PanelLeftOpen } from 'lucide-react';
 import { Sidebar } from './components/Sidebar/Sidebar';
 import { VideoPlayer } from './components/VideoPlayer/VideoPlayer';
+import { LanguageSelector } from './components/LanguageSelector/LanguageSelector';
 import { useVideoStore } from './stores/videoStore';
 
 function App() {
+  const { t } = useTranslation();
   const loadItems = useVideoStore((state) => state.loadItems);
   const [sidebarVisible, setSidebarVisible] = useState(() => {
     const saved = localStorage.getItem('sidebarVisible');
@@ -73,11 +76,15 @@ function App() {
         <button
           onClick={() => setSidebarVisible(true)}
           className="absolute top-2 left-2 z-10 p-2 bg-gray-800 hover:bg-gray-700 rounded text-gray-400 hover:text-white"
-          title="Show panel"
+          title={t('sidebar.showPanel')}
         >
           <PanelLeftOpen size={20} />
         </button>
       )}
+
+      <div className="absolute top-2 right-2 z-10">
+        <LanguageSelector />
+      </div>
 
       <div className="flex-1 flex min-w-0 relative">
         <VideoPlayer />

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
 import { useVideoStore } from '../../stores/videoStore';
 import type { GroupItem } from '../../types';
@@ -9,6 +10,7 @@ interface AddGroupModalProps {
 }
 
 export function AddGroupModal({ isOpen, onClose }: AddGroupModalProps) {
+  const { t } = useTranslation();
   const { addGroup, items } = useVideoStore();
   const [name, setName] = useState('');
   const [parentId, setParentId] = useState<string | null>(null);
@@ -22,7 +24,7 @@ export function AddGroupModal({ isOpen, onClose }: AddGroupModalProps) {
     setError('');
 
     if (!name.trim()) {
-      setError('Group name is required');
+      setError(t('addGroupModal.nameRequired'));
       return;
     }
 
@@ -39,7 +41,7 @@ export function AddGroupModal({ isOpen, onClose }: AddGroupModalProps) {
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-gray-800 rounded-lg p-6 w-full max-w-md mx-4">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-white">Add Group</h2>
+          <h2 className="text-xl font-semibold text-white">{t('addGroupModal.title')}</h2>
           <button
             onClick={onClose}
             className="p-1 hover:bg-gray-700 rounded"
@@ -51,13 +53,13 @@ export function AddGroupModal({ isOpen, onClose }: AddGroupModalProps) {
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-300 mb-1">
-              Group name
+              {t('addGroupModal.nameLabel')}
             </label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. Basic Trainings"
+              placeholder={t('addGroupModal.namePlaceholder')}
               className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
               autoFocus
             />
@@ -65,14 +67,14 @@ export function AddGroupModal({ isOpen, onClose }: AddGroupModalProps) {
 
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-300 mb-1">
-              Parent group (optional)
+              {t('addGroupModal.parentLabel')}
             </label>
             <select
               value={parentId || ''}
               onChange={(e) => setParentId(e.target.value || null)}
               className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white focus:outline-none focus:border-blue-500"
             >
-              <option value="">None (root)</option>
+              <option value="">{t('addGroupModal.noParent')}</option>
               {groups.map((group) => (
                 <option key={group.id} value={group.id}>
                   {group.name}
@@ -93,13 +95,13 @@ export function AddGroupModal({ isOpen, onClose }: AddGroupModalProps) {
               onClick={onClose}
               className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded text-white"
             >
-              Cancel
+              {t('addGroupModal.cancel')}
             </button>
             <button
               type="submit"
               className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded text-white"
             >
-              Add
+              {t('addGroupModal.add')}
             </button>
           </div>
         </form>

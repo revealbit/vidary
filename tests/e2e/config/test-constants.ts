@@ -22,8 +22,8 @@ export const TEXT_CONTENT = {
   ADD_VIDEO_TITLE: 'Add Video',
   ADD_GROUP_TITLE: 'Add Group',
   EDIT_VIDEO_TITLE: 'Edit Video',
-  ROOT_GROUP_LABEL: 'No group (root)',
-  ROOT_PARENT_LABEL: 'None (root)',
-  ERROR_INVALID_URL: 'Invalid YouTube URL',
+  ROOT_GROUP_LABEL: 'No group',
+  ROOT_PARENT_LABEL: 'None',
+  ERROR_INVALID_URL: 'Invalid URL',
   ERROR_EMPTY_NAME: 'Group name is required',
 } as const;

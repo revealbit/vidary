@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Plus, FolderPlus, Download, Upload, PanelLeftClose } from 'lucide-react';
 import { TreeView } from '../TreeView/TreeView';
 import { AddVideoModal } from '../AddVideoModal/AddVideoModal';
@@ -14,6 +15,7 @@ interface SidebarProps {
 }
 
 export function Sidebar({ width, onToggle }: SidebarProps) {
+  const { t } = useTranslation();
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [isGroupModalOpen, setIsGroupModalOpen] = useState(false);
   const [editingVideo, setEditingVideo] = useState<VideoItem | null>(null);
@@ -43,7 +45,7 @@ export function Sidebar({ width, onToggle }: SidebarProps) {
       if (file) {
         // Security: Enforce file size limit to prevent DoS
         if (file.size > MAX_IMPORT_FILE_SIZE) {
-          alert(`File too large. Maximum size is ${MAX_IMPORT_FILE_SIZE / 1024 / 1024}MB`);
+          alert(t('sidebar.fileTooLarge', { size: MAX_IMPORT_FILE_SIZE / 1024 / 1024 }));
           return;
         }
 
@@ -53,7 +55,7 @@ export function Sidebar({ width, onToggle }: SidebarProps) {
         } catch (err) {
           // Show specific validation error to user
           const message = err instanceof Error ? err.message : 'Unknown error';
-          alert(`Import failed: ${message}`);
+          alert(t('sidebar.importFailed', { message }));
         }
       }
     };
@@ -67,11 +69,11 @@ export function Sidebar({ width, onToggle }: SidebarProps) {
     >
       <div className="p-3 border-b border-gray-700">
         <div className="flex items-center justify-between mb-3">
-          <h1 className="text-lg font-bold text-white">Vidary</h1>
+          <h1 className="text-lg font-bold text-white">{t('app.title')}</h1>
           <button
             onClick={onToggle}
             className="p-1 hover:bg-gray-700 rounded text-gray-400 hover:text-white"
-            title="Hide panel"
+            title={t('sidebar.hidePanel')}
           >
             <PanelLeftClose size={18} />
           </button>
@@ -83,14 +85,14 @@ export function Sidebar({ width, onToggle }: SidebarProps) {
             className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 rounded text-sm text-white"
           >
             <Plus size={16} />
-            Video
+            {t('sidebar.video')}
           </button>
           <button
             onClick={() => setIsGroupModalOpen(true)}
             className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 bg-gray-700 hover:bg-gray-600 rounded text-sm text-white"
           >
             <FolderPlus size={16} />
-            Group
+            {t('sidebar.group')}
           </button>
         </div>
 
@@ -98,18 +100,18 @@ export function Sidebar({ width, onToggle }: SidebarProps) {
           <button
             onClick={handleExport}
             className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 bg-gray-700 hover:bg-gray-600 rounded text-xs text-gray-300"
-            title="Export data"
+            title={t('sidebar.exportData')}
           >
             <Download size={14} />
-            Export
+            {t('sidebar.export')}
           </button>
           <button
             onClick={handleImport}
             className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 bg-gray-700 hover:bg-gray-600 rounded text-xs text-gray-300"
-            title="Import data"
+            title={t('sidebar.importData')}
           >
             <Upload size={14} />
-            Import
+            {t('sidebar.import')}
           </button>
         </div>
       </div>

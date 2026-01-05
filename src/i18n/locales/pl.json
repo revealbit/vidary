@@ -1,0 +1,72 @@
+{
+  "app": {
+    "title": "Vidary"
+  },
+  "sidebar": {
+    "hidePanel": "Ukryj panel",
+    "showPanel": "Pokaż panel",
+    "video": "Wideo",
+    "group": "Grupa",
+    "export": "Eksport",
+    "import": "Import",
+    "exportData": "Eksportuj dane",
+    "importData": "Importuj dane",
+    "fileTooLarge": "Plik za duży. Maksymalny rozmiar to {{size}}MB",
+    "importFailed": "Import nieudany: {{message}}"
+  },
+  "videoPlayer": {
+    "selectVideo": "Wybierz wideo z listy",
+    "addVideoHint": "lub dodaj nowe używając przycisku \"+ Wideo\""
+  },
+  "addVideoModal": {
+    "title": "Dodaj wideo",
+    "urlLabel": "URL",
+    "urlPlaceholder": "https://www.youtube.com/watch?v=...",
+    "titleLabel": "Tytuł",
+    "titlePlaceholder": "Nazwa wideo",
+    "fetchTitle": "Pobierz oryginalny tytuł z YouTube",
+    "groupLabel": "Grupa (opcjonalnie)",
+    "noGroup": "Bez grupy",
+    "statusLabel": "Status",
+    "descriptionLabel": "Opis (opcjonalnie)",
+    "descriptionPlaceholder": "Dodatkowe informacje o wideo...",
+    "cancel": "Anuluj",
+    "add": "Dodaj",
+    "invalidUrl": "Nieprawidłowy adres URL",
+    "cannotExtractId": "Nie można wyodrębnić ID wideo z adresu URL",
+    "titleRequired": "Tytuł jest wymagany"
+  },
+  "editVideoModal": {
+    "title": "Edytuj wideo",
+    "save": "Zapisz"
+  },
+  "addGroupModal": {
+    "title": "Dodaj grupę",
+    "nameLabel": "Nazwa grupy",
+    "namePlaceholder": "np. Podstawowe szkolenia",
+    "parentLabel": "Grupa nadrzędna (opcjonalnie)",
+    "noParent": "Brak",
+    "cancel": "Anuluj",
+    "add": "Dodaj",
+    "nameRequired": "Nazwa grupy jest wymagana"
+  },
+  "treeItem": {
+    "markAsWatched": "Oznacz jako obejrzane",
+    "markAsUnwatched": "Oznacz jako nieobejrzane",
+    "important": "Ważne",
+    "deleteVideo": "Usunąć to wideo?",
+    "deleteGroup": "Usunąć tę grupę i jej zawartość?"
+  },
+  "status": {
+    "none": "Brak",
+    "toWatch": "Do obejrzenia",
+    "inProgress": "W trakcie",
+    "watched": "Obejrzane",
+    "important": "Ważne"
+  },
+  "language": {
+    "label": "Język",
+    "en": "English",
+    "pl": "Polski"
+  }
+}

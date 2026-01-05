@@ -1,0 +1,72 @@
+{
+  "app": {
+    "title": "Vidary"
+  },
+  "sidebar": {
+    "hidePanel": "Hide panel",
+    "showPanel": "Show panel",
+    "video": "Video",
+    "group": "Group",
+    "export": "Export",
+    "import": "Import",
+    "exportData": "Export data",
+    "importData": "Import data",
+    "fileTooLarge": "File too large. Maximum size is {{size}}MB",
+    "importFailed": "Import failed: {{message}}"
+  },
+  "videoPlayer": {
+    "selectVideo": "Select a video from the list",
+    "addVideoHint": "or add a new one using the \"+ Video\" button"
+  },
+  "addVideoModal": {
+    "title": "Add Video",
+    "urlLabel": "URL",
+    "urlPlaceholder": "https://www.youtube.com/watch?v=...",
+    "titleLabel": "Title",
+    "titlePlaceholder": "Video name",
+    "fetchTitle": "Fetch original title from YouTube",
+    "groupLabel": "Group (optional)",
+    "noGroup": "No group",
+    "statusLabel": "Status",
+    "descriptionLabel": "Description (optional)",
+    "descriptionPlaceholder": "Additional information about the video...",
+    "cancel": "Cancel",
+    "add": "Add",
+    "invalidUrl": "Invalid URL",
+    "cannotExtractId": "Cannot extract video ID from URL",
+    "titleRequired": "Title is required"
+  },
+  "editVideoModal": {
+    "title": "Edit Video",
+    "save": "Save"
+  },
+  "addGroupModal": {
+    "title": "Add Group",
+    "nameLabel": "Group name",
+    "namePlaceholder": "e.g. Basic Trainings",
+    "parentLabel": "Parent group (optional)",
+    "noParent": "None",
+    "cancel": "Cancel",
+    "add": "Add",
+    "nameRequired": "Group name is required"
+  },
+  "treeItem": {
+    "markAsWatched": "Mark as watched",
+    "markAsUnwatched": "Mark as unwatched",
+    "important": "Important",
+    "deleteVideo": "Delete this video?",
+    "deleteGroup": "Delete this group and its contents?"
+  },
+  "status": {
+    "none": "None",
+    "toWatch": "To Watch",
+    "inProgress": "In Progress",
+    "watched": "Watched",
+    "important": "Important"
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "pl": "Polski"
+  }
+}

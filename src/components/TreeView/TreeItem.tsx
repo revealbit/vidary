@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { ChevronRight, ChevronDown, Folder, Video, Trash2, GripVertical, Pencil, Check, X, Circle, CheckCircle2, Star } from 'lucide-react';
 import { useVideoStore } from '../../stores/videoStore';
@@ -13,6 +14,7 @@ interface TreeItemProps {
 }
 
 export function TreeItemComponent({ item, depth, children, isDragging: isDraggingProp, onEditVideo }: TreeItemProps) {
+  const { t } = useTranslation();
   const { selectVideo, selectedVideoId, toggleGroup, removeItem, updateItem } = useVideoStore();
 
   const handleToggleWatched = (e: React.MouseEvent) => {
@@ -57,7 +59,7 @@ export function TreeItemComponent({ item, depth, children, isDragging: isDraggin
 
   const handleDelete = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (confirm(isVideo ? 'Delete this video?' : 'Delete this group and its contents?')) {
+    if (confirm(isVideo ? t('treeItem.deleteVideo') : t('treeItem.deleteGroup'))) {
       removeItem(item.id);
     }
   };
@@ -145,7 +147,7 @@ export function TreeItemComponent({ item, depth, children, isDragging: isDraggin
             <button
               onClick={handleToggleWatched}
               className="flex-shrink-0 p-0.5 hover:bg-gray-600 rounded"
-              title={isWatched ? 'Mark as unwatched' : 'Mark as watched'}
+              title={isWatched ? t('treeItem.markAsUnwatched') : t('treeItem.markAsWatched')}
             >
               {isWatched ? (
                 <CheckCircle2 size={14} className="text-green-500" />
@@ -157,7 +159,7 @@ export function TreeItemComponent({ item, depth, children, isDragging: isDraggin
         })()}
 
         {isVideo && (item as VideoItem).status === 'important' && (
-          <span title="Important" className="flex-shrink-0">
+          <span title={t('treeItem.important')} className="flex-shrink-0">
             <Star size={12} className="text-yellow-500 fill-yellow-500" />
           </span>
         )}
